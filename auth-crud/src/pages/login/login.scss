@@ -1,0 +1,21 @@
+.form{
+    margin-top: 100px;
+    .bi{
+        width: 100%;
+        padding: 0 5px;
+    }
+    input{
+        width: 300px;
+    }
+    button{
+        font-weight: bold;
+        width: 300px;
+    }
+    a{
+        font-size: 15px
+    }
+    .remember{
+        font-size: 14px;
+        color: gray;
+    }
+}
