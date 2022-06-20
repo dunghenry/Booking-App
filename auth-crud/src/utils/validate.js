@@ -1,5 +1,5 @@
 export const validateRegister = (user) => {
-    const { name, email, password, cf_password } = user;
+    const { name, email, password, confirmPassword } = user;
     const errors = [];
     if (!name.trim()) {
         errors.push("Please add your name!");
@@ -13,11 +13,11 @@ export const validateRegister = (user) => {
     else if (!validateEmail(email)) {
         errors.push("Email format is incorrect!");
     }
-    if (password && cf_password) {
-        const msg = checkPassword(password, cf_password);
+    if (password && confirmPassword) {
+        const msg = checkPassword(password, confirmPassword);
         if (msg) errors.push(msg);
     }
-    else {
+    else if (!password || !confirmPassword) {
         errors.push("Password or confirm password cannot be blank!");
     }
     return {
@@ -27,18 +27,18 @@ export const validateRegister = (user) => {
 }
 
 
-export const checkPassword = (password, cf_password) => {
-    if (password.length < 6 || cf_password.length < 6) {
+export const checkPassword = (password, confirmPassword) => {
+    if (password.length < 6 || confirmPassword.length < 6) {
         return ("Password must be at least 6 characters!");
     }
-    else if (password !== cf_password) {
+    else if (password !== confirmPassword) {
         return ("Confirm password did not match!");
     }
 }
 
-function validateEmail(email) { 
+function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
-} 
+}
 
 export default validateEmail;

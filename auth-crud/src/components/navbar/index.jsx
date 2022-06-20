@@ -12,8 +12,8 @@ const Navbar = () => {
   return (
     <div className="pt-1">
       {user && (<Link to="/profile" className="text-decoration-none mx-4 text-muted font-weight-bold">
-        <img width="40px" src="https://c.clc2l.com/t/r/e/reddit-_pAyiQ.png" />
-        <span className="brand">Tran Dung</span>
+        <img style={{borderRadius: '50%'}} width="40px" src={user.photoURL} />
+        <span className="brand px-2">{user.displayName}</span>
       </Link>)}
       {!user && (<Link to="/register" className="text-decoration-none">
         <button className="btn btn-primary">

@@ -8,7 +8,7 @@ const Header = () => {
     <header>
       <div className="container p-2 d-flex justify-content-between">
         <Link to="/" className="text-decoration-none">
-          <h3 className="text-muted">Home</h3>
+          <h3 className="text-muted pt-2">Home</h3>
         </Link>
         <Navbar/>
       </div>

@@ -3,11 +3,17 @@ import "./login.scss";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { loginEmailAndPassword } from "../../store/reducers/authSlice";
+import {
+  loginEmailAndPassword,
+  googleLogin,
+  facebookLogin,
+  githubLogin
+} from "../../store/reducers/authSlice";
 import { useSelector } from "react-redux";
 import validateEmail from "../../utils/validate";
+import Loading from '../../components/global/Loading'
 const Login = () => {
-  const { errors } = useSelector((state) => ({ ...state.auth }));
+  const { errors, loading } = useSelector((state) => ({ ...state.auth }));
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -30,6 +36,15 @@ const Login = () => {
   useEffect(() => {
     errors && toast.error(errors[0]);
   }, [errors]);
+  const loginGoogle = () => {
+    dispatch(googleLogin(navigate));
+  };
+  const loginGithub = () => {
+    dispatch(githubLogin(navigate));
+  }
+  const loginFacebook = () => {
+    dispatch(facebookLogin(navigate));
+  };
   return (
     <div className="d-flex justify-content-center">
       <form onSubmit={handleLogin} className="form">
@@ -82,16 +97,34 @@ const Login = () => {
           </button>
         </div>
         <div>
-          <button className="rounded login-google mt-4 btn btn-outline-danger">
+          <button
+            type="button"
+            className="rounded login-google mt-4 btn btn-outline-danger"
+            onClick={loginGoogle}
+          >
             <i className="bi bi-google"></i>Login with Google
           </button>
         </div>
         <div>
-          <button className="rounded mt-4 login-google btn btn-outline-primary">
+          <button
+            type="button"
+            className="rounded mt-4 login-google btn btn-outline-primary"
+            onClick={loginFacebook}
+          >
             <i className="bi bi-facebook"></i>Login with Facebook
           </button>
         </div>
+        <div>
+          <button
+            type="button"
+            className="rounded mt-4 login-google btn btn-outline-dark"
+            onClick={loginGithub}
+          >
+            <i className="bi bi-github"></i>Login with Github
+          </button>
+        </div>
       </form>
+      {loading && <Loading/>}
     </div>
   );
 };
